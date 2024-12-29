@@ -1,68 +1,81 @@
-# CodeIgniter 4 Application Starter
+Blog Websitesi
+Mehmet Yiğit Çiçek 2323221024
+Furkan Karasu 2323221038
+Ömer Vanlıoğlu 2323221052
 
-## What is CodeIgniter?
+Proje Dosyaları ve Maddeler Hakkına Bilgilendirme:
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+app klasörü 
+.htaccess: Sunucu yapılandırma dosyası.
+Common.php: Ortak fonksiyonları içeren bir PHP dosyası.
+Config: Yapılandırma ayarlarını içeren bir klasör.
+Controllers: Kontrolör dosyalarını içeren bir klasör.
+Database: Veritabanı işlemleriyle ilgili dosyalar içeren bir klasör.
+Filters: Filtre dosyaları klasörü.
+Helpers: Yardımcı fonksiyon dosyaları klasörü.
+Language: Dil dosyaları klasörü.
+Models: Model dosyalarını içeren bir klasör.
+Views: Görünüm dosyalarını içeren bir klasör.
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+Controllers klasörü
+Auth.php: kullanıcı doğrulama işlemleri için.
+BaseController.php: Tüm kontrolörler için temel bir sınıf.
+Blog.php: Blog ile ilgili işlemleri yöneten bir kontrolör.
+Home.php: Ana sayfa kontrolörü.
+Main.php: Genel uygulama işlevlerini yöneten bir kontrolör.
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+Models klasörü
+Auth.php: Kullanıcı kimlik doğrulama modeli. - Kullanıcı doğrulama ve şifre işlemleri için kullanılıyor.
+Categories.php: Kategoriler için bir model.
+Posts.php: Gönderiler için bir model. - Blog gönderileri üzerinde CRUD işlemleri için yapılandırılmış.
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
 
-## Installation & updates
+SQL:
+categories: blog kategorilerini tutuyor.
+migrations: Veritabanı geçişlerini yönetmek için.
+posts: Blog gönderilerini saklamak için.
+users: Kullanıcı bilgilerini ve kimlik doğrulama için.
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+users tablosu:
 
-## Setup
+    Kullanıcılar için şifre sütunu password olarak tanımlanmış ve text türünde saklanıyor.
+    Ek sütunlar: name, email, type, created_at, updated_at.
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+posts tablosu:
 
-## Important Change with index.php
+    Blog gönderileri için gerekli sütunlar: category_id, user_id, title, short_description, content, banner, tags, status.
+    İçerikler yönetim paneli üzerinden oluşturulacak şekilde tasarlandı
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+Auth.php (Controller):
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+    Kullanıcı giriş işlemleri ve kimlik doğrulama için bir model (Auth_Model) kullanılıyor.
+    session kullanımıyla kullanıcı oturumu yönetiliyor.
 
-**Please** read the user guide for a better explanation of how CI4 works!
+Blog.php (Controller):
 
-## Repository Management
+    Blog gönderileriyle ilgili işlemleri yönetmek için Posts, Categories, ve Auth modelleri kullanılıyor.
+    db_connect kullanılarak veritabanına bağlanılıyor ve session ile oturum yönetimi sağlanıyor.
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+Kullanıcı girişi ve güvenli oturum yönetimi (Madde 2 ve Madde 8).
+Veritabanı tabloları üzerinde CRUD işlemleri için model yapısı (Madde 6).
+Blog gönderilerinin yönetimi ve web sitesinde gösterimi (Madde 3 ve Madde 4).
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+Yönetim Paneli ve Web Sitesi (Madde 1): Yönetim paneli için kontrolörler ve modeller mevcut. Örneğin Blog gönderilerini yöneten bir sistem var.
 
-## Server Requirements
+Veritabanı Kullanımı ve Güvenli Şifre Saklama (Madde 2): Veritabanı tablolarında kullanıcı şifreleri saklanıyor ve hashlenerek saklannıyor.
 
-PHP version 8.1 or higher is required, with the following extensions installed:
+Veritabanı Tabloları ve İçerik Yönetimi (Madde 3): users, posts, categories tabloları, içerik ekleme/düzenleme/silme işlemleri için yapılandırılmış.
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+Web Sitesinde İçerik Gösterimi (Madde 4): Blog gönderilerinin görüntülendiği bir yapı mevcut.
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
+baseURL ve Ortam Türü (Madde 5): app.php dosyasında mevcut.
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+CRUD ve Manuel Model Yapısı (Madde 6): Posts ve Categories modelleri CRUD yapısını kullanıyor.
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+Oturum Yönetimi (Madde 8): Kullanıcı oturumları session(çerez) üzerinden yönetiliyor.
+
+Fonksiyon Kullanımı (Madde 9): base_url: Projede birçok yerde kullanılmış özellikle görünüm dosyalarında ör. auth/login.php, pages/posts/add.php
+
+Rota Kuralları (Madde 10): get ve post: Çeşitli dosyalarda kullanılmış. Örneğin Auth.php ve Blog.php kontrolörlerinde.
+match: Kullanımı Routes.php ve Auth.php gibi dosyalarda bulunuyor.
