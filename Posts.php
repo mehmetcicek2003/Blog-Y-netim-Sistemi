@@ -1,42 +1,27 @@
 <?php
 
-namespace App\Models;
+namespace App\Database\Seeds;
 
-use CodeIgniter\Model;
+use CodeIgniter\Database\Seeder;
+use App\Models\Posts as post_model;
 
-class Posts extends Model
+class Posts extends Seeder
 {
-    protected $DBGroup          = 'default';
-    protected $table            = 'posts';
-    protected $primaryKey       = 'id';
-    protected $useAutoIncrement = true;
-    protected $insertID         = 0;
-    protected $returnType       = 'array';
-    protected $useSoftDeletes   = false;
-    protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'category_id', 'user_id', 'title', 'short_description', 'content', 'banner', 'tags', 'status'];
-
-    // Dates
-    protected $useTimestamps = false;
-    protected $dateFormat    = 'datetime';
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
-    protected $deletedField  = 'deleted_at';
-
-    // Validation
-    protected $validationRules      = [];
-    protected $validationMessages   = [];
-    protected $skipValidation       = false;
-    protected $cleanValidationRules = true;
-
-    // Callbacks
-    protected $allowCallbacks = true;
-    protected $beforeInsert   = [];
-    protected $afterInsert    = [];
-    protected $beforeUpdate   = [];
-    protected $afterUpdate    = [];
-    protected $beforeFind     = [];
-    protected $afterFind      = [];
-    protected $beforeDelete   = [];
-    protected $afterDelete    = [];
+    public function run()
+    {
+        $model = new post_model;
+        $faker = \Faker\Factory::create();
+        for($i = 0; $i < 20; $i++){
+            $model->save([
+                'category_id'=>ceil(mt_rand(1,5)),
+                'user_id'=>1,
+                'title' => $faker->words(4, true),
+                'short_description' => $faker->sentence,
+                'content' => $faker->paragraphs(3, true),
+                'tags' => implode(",", $faker->words(4, false)),
+                'banner' => $faker->imageUrl(640, 480),
+                'status' => 1,
+            ]);
+        }
+    }
 }
