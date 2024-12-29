@@ -6,7 +6,7 @@ use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class Auth implements FilterInterface
+class UserRole implements FilterInterface
 {
     /**
      * Do whatever processing this filter needs to do.
@@ -25,9 +25,10 @@ class Auth implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        if(empty(session()->login_id)){
-            return redirect()->to('/');
-        }
+        // $is_admin = 'test';
+        // if(!empty(session()->login_id)){
+
+        // }
     }
 
     /**
